@@ -19,4 +19,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.yo {
+  background-color: rgba(232, 234, 236, 0.507);
+  min-height: 100%;
+}
 </style>

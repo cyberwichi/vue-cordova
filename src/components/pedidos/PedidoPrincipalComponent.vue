@@ -1,16 +1,16 @@
 <template>
-  <div class="">
+  <div class="yo">
     <img src="../../assets/logo.png" width="100px" height="100px" class="mt-3 mb-3">
     <br>
-    <b-button pill v-on:click=" atras">
+    <b-button class="shadow-lg" pill v-on:click="atras">
       Atras
     </b-button>
-        <b-card
+      <b-card
         title="Calendario de Avisos"
         tag="article"
-        style="width:100%;height:100%"
-        class="mb-2 mt-2"
-        >
+        style=""
+        class="m-3 shadow-lg rounded "
+      >
          <vue-cal
             :time="false"
             default-view="day"
@@ -31,15 +31,15 @@
         </vue-cal>
 
        </b-card>
-    <h4>Ultimos Avisos Asignados</h4>
-    <div class="table-responsive p-1">
-      <table class="table w-75 mx-auto">
-      <thead>
-        <th>Id</th>
-        <th>Cliente</th>
-        <th>Fecha/Hora prevista</th>
+    <h4 class="">Ultimos Avisos Asignados</h4>
+    <div class="table-responsive ">
+      <table class="table w-75 mx-auto shadow-lg mb-5">
+      <thead class="bg-white" >
+        <th class="border border-secondary">Id</th>
+        <th class="border border-secondary">Cliente</th>
+        <th class="border border-secondary">Fecha/Hora prevista</th>
       </thead>
-      <tbody>
+      <tbody class="bg-white">
         <tr class="" v-for="(dato, index) in datos" :key="index" v-on:click.prevent="iraviso(dato.id)">
           <td class="border h5 border-secondary">{{dato.id}}</td>
           <td class="border h5 border-secondary" >{{dato.tb_contacto.Nombre}}</td>
@@ -158,5 +158,8 @@ export default {
 }
 .vuecal {
   width:100%;height:250px; font-size: 12px;overflow: visible;
+}
+.yo {
+  background-color: rgb(231, 231, 231)
 }
 </style>

@@ -1,16 +1,15 @@
 <template>
-  <div class="">
+  <div class="yo">
     <img src="../../assets/logo.png" width="100px" height="100px" class="mt-3 mb-3">
     <br>
     <b-button pill v-on:click="atras">
       Atras
     </b-button>
-     <b-button v-on:click.prevent="iralbaran(aviso.id)"  pill variant="success">Crear Albaran</b-button>
-    <div id="vistapedido">
+     <b-button v-on:click.prevent="iralbaran(aviso.id)"  pill variant="success">Crear Parte de Trabajo</b-button>
+    <div id="vistapedido" class="shadow-lg">
         <b-card
         tag="article"
-        style="width:100%;"
-        class="mb-2"
+        class="m-2 yo"
         >
         <div class="h4">
             Aviso Numero: {{aviso.id}}
@@ -96,5 +95,8 @@ export default {
 }
 .container {
     overflow: scroll;
+}
+.yo {
+  background-color: rgb(231, 231, 231)
 }
 </style>

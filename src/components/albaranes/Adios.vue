@@ -1,43 +1,41 @@
 <template>
-  <div class=''>
+  <div class='yo'>
     <img src="../../assets/logo.png" width="100px" height="100px" class="mt-3 mb-3">
     <br>
     <b-button pill v-on:click="atras" >
       Atras
     </b-button>
-        <!-- <img src='../../assets/cabecera.jpeg' width='99%' class='image-responsive'> -->
-        <b-card
+    <b-card
         tag='article'
-        style='width:100%;'
-        class='container'
-        >
-        <div class="linea">
+        style='width:98%;'
+        class=' yo shadow-lg my-2 mx-auto'
+    >
+        <div class="linea shadow">
           <div class=''>
             Aviso Numero: <strong>{{aviso.id}}</strong>
-        </div>
-         <div class=' '>
-            Cliente: <strong>{{aviso.tb_contacto.Nombre}}</strong>
-        </div>
-        <div class=' '>
-            Direccion: <strong> {{aviso.tb_contacto.Direccion}}</strong>
-        </div>
-        <div class=' '>
-            Telefono: <strong>{{aviso.tb_contacto.Telefono}}</strong>
-        </div>
-        <div class=' '>
-            Fecha y Hora:
-            <br>
-           <strong> {{aviso.fechaPrevista | moment('DD/MM/YYYY, h:mm a')}}</strong>
-        </div>
-        <div class=' '>
-            Comentarios:
-            <br>
-            <strong>{{aviso.comentario}}</strong>
-        </div>
+          </div>
+          <div class=' '>
+              Cliente: <strong>{{aviso.tb_contacto.Nombre}}</strong>
+          </div>
+          <div class=' '>
+              Direccion: <strong> {{aviso.tb_contacto.Direccion}}</strong>
+          </div>
+          <div class=' '>
+              Telefono: <strong>{{aviso.tb_contacto.Telefono}}</strong>
+          </div>
+          <div class=' '>
+              Fecha y Hora:
+              <br>
+            <strong> {{aviso.fechaPrevista | moment('DD/MM/YYYY, h:mm a')}}</strong>
+          </div>
+          <div class=' '>
+              Comentarios:
+              <br>
+              <strong>{{aviso.comentario}}</strong>
+          </div>
         </div>
                 <!-- maquinas -->
-        <div>
-          <div class="linea mt-1">
+        <div class="linea mt-1 shadow">
             <small id="helpId3" class="form-text text-muted">Comience a teclear y pulse espacio para sugerencias <br> Pulsando solo espacio tendra una lista de las maquinas registradas</small>
             <div class="m-3 autocomplete">
             <input type="text" v-model="maquina" class="p-2 w-75"
@@ -77,9 +75,8 @@
                   v-on:click='borrarMaquina(index)'
                 />
             </div>
-          </div>
         </div>
-        <div class="linea mt-1">
+        <div class="linea shadow mt-1">
           <div class='h4 mt-2'>
                 Materiales Entregados:
           </div>
@@ -114,66 +111,73 @@
               <tfoot>
               </tfoot>
             </table>
-            <!-- <b-table striped :items='detallesAviso' :fields='fields'></b-table> -->
           </div>
         </div>
         <!-- articulos -->
-        <div>
-          <div class="linea mt-1">
-            <small id="helpId4" class="form-text text-muted">Comience a teclear y pulse espacio para sugerencias <br> Pulsando solo espacio tendra una lista de los articulos registrados</small>
-            <div class="m-3 autocomplete">
-            <input type="text" v-model="busca" class="p-2 w-75"
-              @blur="onBlur2 = true"
-              aria-describedby="helpId4"
-              @focus="
-              onFocus2 = true;
-              onBlur2 = false;
-              "
-              placeholder="Articulo"
-              v-on:click.prevent="buscarArticulo(busca)">
-            <div class="autocomplete-items" v-if="onFocus2">
-              <div
-              v-for="(arti, index) in listaarticulos"
-              @click="articulo=arti;onFocus = false;busca=''"
-              :key="index"
-              >
-                <div>
-                  <strong>{{
-                   arti.Nombre
-                    }}
-                  </strong>
+        <div class="dflex flex-row linea shadow p-2 mt-1">
+          <div class="col-12 h4 mt-2">Añadir Articulos: <b-button class="botoncillo btn btn-success" v-b-modal.modal-prevent-closing>+</b-button></div>
+          <div v-if="articulo.Nombre" class="linea col-11 mx-auto mb-2 p-2" >
+                <strong>{{articulo.Nombre}}</strong>
+                <br>
+                <br>
+                <label for="cantidad">CANTIDAD</label>
+                <input type="text" v-model="cantidad" name="cantidad" class="w-25">
+                <br>
+                <h5>PRECIO</h5>
+                {{articulo.UPC}}
+                <br>
+                <br>
+                <img
+                    id='add1'
+                    src='./add.png'
+                    width='45px'
+                    v-on:click='sumarArticulo(articulo, cantidad)'
+                  />
+                <img
+                    id='add1'
+                    src='./Delete.png'
+                    width='45px'
+                    v-on:click='articulo={Nombre: null, UPC:null, Id: 0}; buscaId=null '
+                  />
+          </div>
+          <div class="referente linea p-2 mt-3 col-11 mx-auto overflow-auto">
+              <small id="helpId4" class="form-text text-muted">Comience a teclear y pulse espacio para sugerencias <br> Pulsando solo espacio tendra una lista de los articulos registrados</small>
+              <div class="mt-3 autocomplete w-75">
+                <input type="text" v-model="busca" class="w-75 py-2"
+                  @blur="onBlur2 = true"
+                  @focus="
+                  onFocus2 = true;
+                  onBlur2 = false;
+                  "
+                  placeholder="Buscar por Nombre"
+                  v-on:click.prevent="buscarArticulo(busca)">
+                <div class="autocomplete-items" v-if="onFocus2">
+                  <div
+                  v-for="(arti, index) in listaarticulos"
+                  @click="articulo=arti;onFocus = false;busca=''"
+                  :key="index"
+                  >
+                    <div>
+                      <strong>{{
+                      arti.Nombre
+                        }}
+                      </strong>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
-            <h4>Añadir Articulos:</h4>
-            <div v-if="articulo" class="linea w-75 mx-auto mb-2 p-2" >
-              <strong>{{articulo.Nombre}}</strong>
-              <br>
-              <br>
-              <label for="cantidad">CANTIDAD</label>
-              <input type="text" v-model="cantidad" name="cantidad" class="w-25">
-              <br>
-              <h5>PRECIO</h5>
-              {{articulo.UPC}}
-              <br>
-              <br>
-              <img
-                  id='add1'
-                  src='./add.png'
-                  width='45px'
-                  v-on:click='sumarArticulo(articulo, cantidad)'
-                />
-              <img
-                  id='add1'
-                  src='./Delete.png'
-                  width='45px'
-                  v-on:click='articulo=null'
-                />
+          <!-- por id -->
+            <div class="col-12 mx-auto">
+              <input type="text" v-model="buscaId" class="p-2 m-3 w-75"
+              placeholder="Buscar por Referencia"
+              >
+              <b-button pill v-on:click.prevent="buscarReferencia()" class="p-2 ">Buscar
+              </b-button>
             </div>
-          </div>
         </div>
-        <div class='linea mt-1'>
+                <!-- finalizado -->
+        <div class='linea shadow mt-1'>
           <div class='card-header'>
           <h4>Trabajo Finalizado</h4>
           <input
@@ -202,15 +206,28 @@
               :placeholder='observaciones'
               ></textarea>
           </div>
+          <div class='form-group p-3'>
+            <h5>
+              <strong>Trabajos Realizados</strong>
+            </h5>
+            <textarea
+              v-model='trabajos'
+              class='form-control sombra'
+              name='trabajos'
+              cols='85'
+              rows='3'
+              :placeholder='trabajos'
+              ></textarea>
+          </div>
       </div>
-      <div class="linea mt-1">
+      <div class="linea shadow mt-1 p-4">
         <h4>Importes a Facturar</h4>
         <td>SubTotal: {{subtotal}}</td>
         <td>Iva 21%: {{iva}}</td>
         <td>Total: {{total}}</td>
       </div>
       <!-- firmas -->
-      <div class='linea mt-1'>
+      <div class='linea shadow mt-1'>
         <div class=''>
           <h4>Firmas</h4>
         </div>
@@ -276,13 +293,49 @@
           </div>
       </div>
        <img
-          class="mt-3"
+          class="my-3 shadow"
           id='save'
           src='./Save.png'
           width='80px'
           v-on:click='guardaAlbaran'
           />
       </b-card>
+      <b-modal
+      id="modal-prevent-closing"
+      ref="modal"
+      title="Articulo Nuevo"
+      size="xl"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="añadirArticulo">
+        <b-form-group
+          :state="nameState"
+          label="Nombre"
+          label-for="name-input"
+          invalid-feedback="Introcuce el nombre del articulo"
+        >
+          <b-form-input
+            id="name-input"
+            v-model="name"
+            :state="nameState"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group
+          :state="upcState"
+          label="Precio"
+          label-for="upc-input"
+          invalid-feedback="Introcuce el precio del articulo"
+        >
+          <b-form-input
+            id="upc-input"
+            v-model="upc"
+            :state="upcState"
+            required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </div>
 </template>
 
@@ -292,7 +345,7 @@ export default {
   name: 'Adios',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'cyberwichi',
       datos: [],
       aviso: {},
       detallesAviso: [],
@@ -303,7 +356,7 @@ export default {
       total: 0,
       option: {
         penColor: 'rgb(0, 0, 0)',
-        backgroundColor: 'rgb(220,220,220)'
+        backgroundColor: 'rgb(255,255,255)'
       },
       firmaCliente: '',
       firmaEmpleado: '',
@@ -326,8 +379,21 @@ export default {
       articuloselegidas: [],
       articulos: [],
       busca: '',
-      articulo: null,
-      cantidad: ''
+      articulo: {
+        Id: '0',
+        Nombre: this.name,
+        UPC: ''
+      },
+      cantidad: '',
+      buscaId: '',
+      find: '',
+      name: '',
+      upc: '',
+      fechaalta: '',
+      nameState: null,
+      upcState: null,
+      fechaaltaState: null,
+      trabajos: null
     }
   },
   created () {
@@ -345,20 +411,67 @@ export default {
     }
   },
   methods: {
+    buscarReferencia () {
+      if (this.buscaId) {
+        this.articulos.forEach(articulo => {
+          articulo.referencias.forEach(element => {
+            if (element.referencia === this.buscaId) this.find = articulo
+            console.log(element.referencia)
+          })
+        })
+        if (this.find) {
+          this.articulo = this.find
+          this.find = {}
+        } else {
+          this.makeToast('danger', 'Articulo no encontrado')
+          this.buscaId = ''
+        }
+      }
+    },
+    añadirArticulo () {
+      this.articulo = {
+        Id: '0',
+        Nombre: this.name,
+        UPC: this.upc
+      }
+      this.$nextTick(() => {
+        this.$bvModal.hide('modal-prevent-closing')
+      })
+    },
+    handleOk (bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault()
+      // Trigger submit handler
+      this.añadirArticulo()
+    },
+    checkFormValidity () {
+      const valid = this.$refs.form.checkValidity()
+      this.nameState = valid
+      this.upcState = valid
+      this.fechaaltaState = valid
+      return valid
+    },
     borrarDetallesAlbaran (index) {
       this.detallesAlbaran.splice(index, 1)
+      this.calcularTotal()
     },
     sumarArticulo (articulo, cantidad) {
       let reg = {
-        articulo_id: articulo.Id,
-        articulo_nombre: articulo.Nombre,
+        articulo_id: this.articulo.Id,
+        articulo_nombre: this.articulo.Nombre,
         aviso_id: this.aviso.id,
         cantidad: cantidad,
-        precio: articulo.UPC
+        precio: this.articulo.UPC
       }
       this.detallesAlbaran.push(reg)
       this.busca = ''
-      this.articulo = null
+      this.articulo = {
+        Id: '0',
+        Nombre: '',
+        UPC: ''
+      }
+      this.buscaId = ''
+      this.cantidad = 1
       this.calcularTotal()
     },
     atras () {
@@ -467,6 +580,14 @@ export default {
       this.total = this.subtotal + this.iva
       this.total = Number(this.total.toFixed(2))
     },
+    // variant = primary secondary las de bootstrap
+    makeToast (variant = null, mensaje) {
+      this.$bvToast.toast(mensaje, {
+        title: '',
+        variant: variant,
+        solid: true
+      })
+    },
     guardaAlbaran () {
       let listaMaquinas = []
       this.maquinaselegidas.forEach((maquina, index) => {
@@ -483,7 +604,8 @@ export default {
         firma_cliente: this.firmaCliente,
         firma_empleado: this.firmaEmpleado,
         listaarticulos: this.detallesAlbaran,
-        listamaquinas: listaMaquinas
+        listamaquinas: listaMaquinas,
+        trabajos: this.trabajos
       }
       let alb = []
       alb = JSON.parse(localStorage.getItem('albaranes'))
@@ -497,6 +619,7 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
+
 .container {
     overflow: scroll;
 }
@@ -537,13 +660,17 @@ a {
     z-index: 99;
     top: 100%;
     max-height: 350px;
-    width: 85%;
-    overflow: auto;
+    overflow: scroll;
+    font-size: small;
+    text-align: justify;
 }
 .autocomplete-items div {
     cursor: pointer;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4;
+    width: 100%;
+    background-color: #dfdddd;
+    border-radius: 15%;
 }
 .autocomplete-items div:hover {
     background-color: #a7a0a0;
@@ -551,5 +678,13 @@ a {
 .autocomplete-active {
     background-color: dodgerblue !important;
     color: #000000 !important;
+}
+.botoncillo{
+  float: right;
+  border-radius: 50%;
+  margin-top: -10px;
+}
+.yo {
+  background-color: rgb(231, 231, 231)
 }
 </style>
