@@ -96,7 +96,7 @@
                     <input type='text' class='w-50 text-right' v-model='detalle.cantidad'>
                   </td>
                   <td class='text-right'>
-                    {{detalle.precio}}
+                    <input type='text' class='w-50 text-right' v-model='detalle.precio'>
                   </td>
                   <td>
                     <img
@@ -123,8 +123,8 @@
                 <label for="cantidad">CANTIDAD</label>
                 <input type="text" v-model="cantidad" name="cantidad" class="w-25">
                 <br>
-                <h5>PRECIO</h5>
-                {{articulo.UPC}}
+                <label for="precio">PRECIO</label>
+                <input type="text" v-model="articulo.UPC" name="precio" class="w-25">
                 <br>
                 <br>
                 <img
@@ -220,11 +220,11 @@
               ></textarea>
           </div>
       </div>
-      <div class="linea shadow mt-1 p-4">
+      <div class="linea shadow mt-1 p-4 table">
         <h4>Importes a Facturar</h4>
         <td>SubTotal: {{subtotal}}</td>
         <td>Iva 21%: {{iva}}</td>
-        <td>Total: {{total}}</td>
+        <td class="">Total: <strong>{{total}} €</strong></td>
       </div>
       <!-- firmas -->
       <div class='linea shadow mt-1'>
